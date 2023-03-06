@@ -84,11 +84,11 @@ const NextQuestion = ()=>{
       welcome to the quiz
       <div class="stepper-header">
         <div class="step">
-          <div :class="{ active: currentStep === 1}">1</div>
+          <div :class="{ active: currentStep === 1 || currentStep === 2 || currentStep === 3}">1</div>
           <p>instructions</p>
         </div>
         <div class="step">
-          <div :class="{ active: currentStep === 2}" >2</div>
+          <div :class="{ active: currentStep === 2 || currentStep === 3}" >2</div>
           <p>quiz</p>
         </div>
         <div class="step">
@@ -97,6 +97,13 @@ const NextQuestion = ()=>{
         </div>
       </div>
       <div v-if="! quizStart">
+        <h1>Quiz Instructions</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+          voluptatum, quod, quia, voluptas quae voluptates quibusdam
+          necessitatibus voluptatibus quos voluptatem quas. Quisquam, quibusdam
+          voluptas. Quisquam, quibusdam voluptas. Quisquam, quibusdam voluptas.
+        </p>
         <button @click="startQuiz">Start Quiz</button>
       </div>
       <div v-if="quizStart">
