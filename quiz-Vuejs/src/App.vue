@@ -2,7 +2,14 @@
 import { ref, computed } from 'vue'
 
 // save wrong answers in an array to show them at the end with the correct answer and explanation
+const quizStart = ref(false)
+
+const currentStep = ref(1)
 var wrongAnswers = []
+function startQuiz() {
+  quizStart.value = true
+  currentStep.value = 2
+}
 const questions = ref([
   {
     question: 'Why is AWS more economical than traditional data centers for applications with varying compute workloads?',
@@ -66,6 +73,7 @@ const NextQuestion = ()=>{
     currentQuestion.value++
   }else{
     quizCompleted.value = true
+    currentStep.value = 3
   }
 }
 
@@ -74,6 +82,25 @@ const NextQuestion = ()=>{
 
     <main class="app">
       welcome to the quiz
+      <div class="stepper-header">
+        <div class="step">
+          <div :class="{ active: currentStep === 1}">1</div>
+          <p>instructions</p>
+        </div>
+        <div class="step">
+          <div :class="{ active: currentStep === 2}" >2</div>
+          <p>quiz</p>
+        </div>
+        <div class="step">
+          <div :class="{ active: currentStep === 3}">3</div>
+          <p>result</p>
+        </div>
+      </div>
+      <div v-if="! quizStart">
+        <button @click="startQuiz">Start Quiz</button>
+      </div>
+      <div v-if="quizStart">
+
       <div v-if="! quizCompleted" class="quizz">
         <div class="quizz-area">
           <div class="question">
@@ -114,6 +141,7 @@ const NextQuestion = ()=>{
         </ul>
       </div>
       </div>
+    </div>
     </main>
 
 
@@ -149,5 +177,27 @@ progress::-webkit-progress-bar {
 progress::-webkit-progress-value {
   background-color: #4caf50;
 }
+
+.stepper-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem auto;
+  width: 300px;
+}
+.step div{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #48572e;
+}
+
+.step div.active{
+  background-color: #374dce;
+}
+
 
 </style>
